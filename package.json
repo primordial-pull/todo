@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "s": "next build && next start"
+    "s": "next build && next start",
+    "convert-svg": "npx @svgr/cli ./public --out-dir ./src/components/icons --typescript"
   },
   "dependencies": {
     "next": "16.2.1",
@@ -15,6 +16,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@svgr/cli": "^8.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
