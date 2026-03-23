@@ -1,7 +1,7 @@
 'use client';
 
 import { AddTodoInput, addTodoItem } from '@/queries/TodoItem';
-import { TodoItem } from '@/types/TodoItem';
+import { Todo } from '@/types/Todo';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { TextInput } from './TextInput';
@@ -17,14 +17,14 @@ export const TodoForm = () => {
 
     onMutate: async ({ name }: AddTodoInput) => {
       await queryClient.cancelQueries({ queryKey: ['todoItems'] });
-      const previousTodos = queryClient.getQueryData<TodoItem[]>(['todoItems']);
+      const previousTodos = queryClient.getQueryData<Todo[]>(['todoItems']);
       const newTodo = {
         id: Date.now(), // 임시 id
         name,
         isCompleted: false,
       };
 
-      queryClient.setQueryData<TodoItem[]>(['todoItems'], (old = []) => [newTodo, ...old]);
+      queryClient.setQueryData<Todo[]>(['todoItems'], (old = []) => [newTodo, ...old]);
       return { previousTodos, newTodo };
     },
 
@@ -37,7 +37,7 @@ export const TodoForm = () => {
     },
 
     onSuccess: (serverData, variables, context) => {
-      queryClient.setQueryData<TodoItem[]>(['todoItems'], (old = []) =>
+      queryClient.setQueryData<Todo[]>(['todoItems'], (old = []) =>
         old.map((item) => (item.id === context.newTodo.id ? serverData : item)),
       );
     },
@@ -52,7 +52,7 @@ export const TodoForm = () => {
   };
 
   return (
-    <form className="flex" onSubmit={handleSubmit}>
+    <form className="flex gap-4 mb-10" onSubmit={handleSubmit}>
       <TextInput
         className="w-full h-[52.5px] rounded-3xl border-2 border-slate-900 pl-6 pt-[17px] pb-[21px]  font-normal text-base leading-none tracking-normal align-middle shadow-[4px_3.5px_1px_#0F172A] focus:outline-none"
         value={todoName}
