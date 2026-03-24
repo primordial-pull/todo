@@ -8,11 +8,12 @@ import { TextInput } from './TextInput';
 import { Button } from '@/components/common/buttons/Button';
 import { PlusIcon } from '@/components/icons';
 
-export const TodoForm = ({
-  setTodos,
-}: {
+type TodoFormProps = {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}) => {
+  todoList: Todo[];
+};
+
+export const TodoForm = ({ todoList, setTodos }: TodoFormProps) => {
   const queryClient = useQueryClient();
   const [todoName, setTodoName] = useState('');
 
@@ -45,7 +46,12 @@ export const TodoForm = ({
         onChange={setTodoName}
         placeholder="할 일을 입력해주세요"
       />
-      <Button type="primary" label="추가하기" icon={<PlusIcon />} responsive={true} />
+      <Button
+        type={todoList.length > 0 ? 'primary' : 'violet'}
+        label="추가하기"
+        icon={<PlusIcon />}
+        responsive={true}
+      />
     </form>
   );
 };
