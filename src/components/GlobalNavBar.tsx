@@ -12,7 +12,7 @@ export const GlobalNavBar = () => {
   };
 
   return (
-    <div className="w-full h-15">
+    <div className="w-full h-15 border-slate-200 border-b">
       <div className="mt-[10px] ml-6 min-[1920px]:ml-[360px]"> {getLogo()}</div>
     </div>
   );
