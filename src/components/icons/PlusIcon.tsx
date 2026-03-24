@@ -9,7 +9,7 @@ const SvgPlusIcon = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <path
-      stroke="currentColor"
+      stroke="#0F172A"
       strokeLinecap="round"
       strokeWidth={2}
       d="M2 8h12M8 14V2"
