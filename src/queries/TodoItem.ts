@@ -9,6 +9,10 @@ export type AddTodoInput = {
   name: string;
 };
 
+export type UpdateTodoInput = Partial<
+  Pick<Todo, 'id' | 'name' | 'memo' | 'imageUrl' | 'isCompleted'>
+>;
+
 export const addTodoItem = async ({ name }: AddTodoInput): Promise<Todo> => {
   const config = {
     method: 'POST',
@@ -18,5 +22,24 @@ export const addTodoItem = async ({ name }: AddTodoInput): Promise<Todo> => {
     },
   };
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/items', config);
+  const result = await response.json();
+  return { id: result.id, name: result.name, isCompleted: false };
+};
+
+export const updateTodoItem = async ({
+  id,
+  name,
+  memo,
+  imageUrl,
+  isCompleted,
+}: UpdateTodoInput): Promise<Todo> => {
+  const config = {
+    method: 'PATCH',
+    body: JSON.stringify({ name, memo, imageUrl, isCompleted }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/items/${id}`, config);
   return response.json();
 };

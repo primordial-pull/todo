@@ -1,6 +1,6 @@
 'use client';
 
-import { AddTodoInput, addTodoItem } from '@/queries/TodoItem';
+import { addTodoItem } from '@/queries/TodoItem';
 import { Todo } from '@/types/Todo';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -8,58 +8,44 @@ import { TextInput } from './TextInput';
 import { Button } from '@/components/common/buttons/Button';
 import { PlusIcon } from '@/components/icons';
 
-export const TodoForm = () => {
+export const TodoForm = ({
+  setTodos,
+}: {
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+}) => {
   const queryClient = useQueryClient();
   const [todoName, setTodoName] = useState('');
 
   const mutation = useMutation({
     mutationFn: addTodoItem,
 
-    onMutate: async ({ name }: AddTodoInput) => {
-      await queryClient.cancelQueries({ queryKey: ['todoItems'] });
-      const previousTodos = queryClient.getQueryData<Todo[]>(['todoItems']);
-      const newTodo = {
-        id: Date.now(), // 임시 id
-        name,
-        isCompleted: false,
-      };
-
-      queryClient.setQueryData<Todo[]>(['todoItems'], (old = []) => [newTodo, ...old]);
-      return { previousTodos, newTodo };
-    },
-
-    onError: (err, newTodo, context) => {
-      queryClient.setQueryData(['todoItems'], context?.previousTodos);
-    },
-
-    onSettled: () => {
+    onError: () => {
       queryClient.invalidateQueries({ queryKey: ['todoItems'] });
     },
 
-    onSuccess: (serverData, variables, context) => {
-      queryClient.setQueryData<Todo[]>(['todoItems'], (old = []) =>
-        old.map((item) => (item.id === context.newTodo.id ? serverData : item)),
-      );
+    onSuccess: (serverData: Todo) => {
+      setTodos((prev) => [serverData, ...prev]);
+      queryClient.setQueryData<Todo[]>(['todoItems'], (old) => [serverData, ...(old || [])]);
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!todoName.trim()) return;
-    mutation.mutate({ name: todoName.trim() });
+
+    await mutation.mutateAsync({ name: todoName.trim() });
     setTodoName('');
   };
 
   return (
     <form className="flex gap-4 mb-10" onSubmit={handleSubmit}>
       <TextInput
-        className="w-full h-[52.5px] rounded-3xl border-2 border-slate-900 pl-6 pt-[17px] pb-[21px]  font-normal text-base leading-none tracking-normal align-middle shadow-[4px_3.5px_1px_#0F172A] focus:outline-none"
+        className="w-full h-[52.5px] rounded-3xl border-2 border-slate-900 pl-6 pt-[17px] pb-[21px] font-normal text-base leading-none tracking-normal align-middle shadow-[4px_3.5px_1px_#0F172A] focus:outline-none"
         value={todoName}
         onChange={setTodoName}
         placeholder="할 일을 입력해주세요"
       />
-      <Button type="primary" label="추가하기" icon={<PlusIcon />} />
+      <Button type="primary" label="추가하기" icon={<PlusIcon />} responsive={true} />
     </form>
   );
 };
