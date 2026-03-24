@@ -1,10 +1,32 @@
 'use client';
 
-import { DoneIcon, TodoIcon } from '@/components/icons';
-import { TodoItem } from './TodoItem';
 import { TodoForm } from './TodoForm';
 import { useTodos } from '@/hooks/useTodos';
 import { useUpdateTodo } from '@/hooks/useUpdateTodo';
+import { CheckList } from './CheckList';
+import TodoIcon from '@/components/icons/TodoIcon';
+import { DoneIcon } from '@/components/icons';
+import { EmptyTodoIcon } from '@/components/icons/emptyIcon/EmptyTodoIcon';
+import { EmptyDoneIcon } from '@/components/icons/emptyIcon/EmptyDoneIcon';
+
+export type CheckListConfig = {
+  titleIcon: React.ReactNode;
+  emptyIcon: React.ReactNode;
+  emptyText: string;
+};
+
+const checkListConfigs = {
+  todo: {
+    titleIcon: <TodoIcon />,
+    emptyIcon: <EmptyTodoIcon />,
+    emptyText: `할 일이 없어요.\nTODO를 새롭게 추가해주세요.`,
+  },
+  done: {
+    titleIcon: <DoneIcon />,
+    emptyIcon: <EmptyDoneIcon />,
+    emptyText: `아직 다 한 일이 없어요.\n해야 할 일을 체크해보세요.`,
+  },
+};
 
 export const TodoList = () => {
   const { todos, setTodos, isPending } = useTodos();
@@ -20,19 +42,8 @@ export const TodoList = () => {
       <TodoForm setTodos={setTodos} />
 
       <div className="flex flex-col min-[1920px]:flex-row gap-6">
-        <div className="flex flex-col w-full min-[1920px]:w-1/2 gap-4 mb-12">
-          <TodoIcon />
-          {todoList.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} onClick={() => toggleTodo(todo)} />
-          ))}
-        </div>
-
-        <div className="flex flex-col w-full min-[1920px]:w-1/2 gap-4">
-          <DoneIcon />
-          {doneList.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} onClick={() => toggleTodo(todo)} />
-          ))}
-        </div>
+        <CheckList list={todoList} config={checkListConfigs.todo} onClick={toggleTodo} />
+        <CheckList list={doneList} config={checkListConfigs.done} onClick={toggleTodo} />
       </div>
     </>
   );

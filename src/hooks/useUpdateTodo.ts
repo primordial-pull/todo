@@ -8,7 +8,7 @@ export const useUpdateTodo = (setTodos: React.Dispatch<React.SetStateAction<Todo
     mutationFn: (todo: Todo) => updateTodoItem(todo),
     onMutate: (updatedTodo) =>
       setTodos((prev) => prev.map((t) => (t.id === updatedTodo.id ? { ...t, ...updatedTodo } : t))),
-    onError: () => queryClient.invalidateQueries(['todoItems']),
+    onError: () => queryClient.invalidateQueries({ queryKey: ['todoItems'] }),
     onSuccess: (serverData) =>
       queryClient.setQueryData<Todo[]>(['todoItems'], (old) =>
         (old || []).map((t) => (t.id === serverData.id ? serverData : t)),
