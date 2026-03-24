@@ -43,3 +43,12 @@ export const updateTodoItem = async ({
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/items/${id}`, config);
   return response.json();
 };
+
+export type FetchTodoItemInput = {
+  itemId: string;
+};
+
+export const fetchTodoItem = async ({ itemId }: FetchTodoItemInput) => {
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/items/${itemId}`);
+  return response.json();
+};
