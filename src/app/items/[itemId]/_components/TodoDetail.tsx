@@ -109,7 +109,7 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
           onChange={(value) => setLocalTodo((prev) => (prev ? { ...prev, memo: value } : prev))}
         />
       </div>
-      <div className="flex justify-center w-full gap-4 min-[1920px]:justify-end">
+      <div className="flex justify-center w-full gap-4 mb-12 min-[1920px]:justify-end">
         <Button label="수정 완료" icon={<CheckIcon />} onClick={handleSave} type="complete" />
         <Button label="삭제하기" icon={<XIcon />} onClick={handleDeleteButtonClick} type="danger" />
       </div>

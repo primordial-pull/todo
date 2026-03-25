@@ -40,7 +40,7 @@ export const DetailImageSection = ({
   };
 
   return (
-    <div className="relative min-w-[384px]">
+    <div className="relative w-full min-[1920]:min-w-[384px]">
       <div className="flex justify-center items-center h-[311px] bg-slate-50 border-2 border-slate-300 border-dashed rounded-3xl overflow-hidden relative">
         {preview ? (
           <Image

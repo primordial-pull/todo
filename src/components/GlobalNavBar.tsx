@@ -18,8 +18,8 @@ export const GlobalNavBar = () => {
   };
 
   return (
-    <div className="w-full h-15 border-slate-200 border-b">
-      <div className="mt-[10px] ml-6 min-[1920px]:ml-[360px]" onClick={handleLogoClick}>
+    <div className="flex items-center w-full h-15 border-slate-200 border-b">
+      <div className="my-[10px] ml-6 min-[1920px]:ml-[360px]" onClick={handleLogoClick}>
         {getLogo()}
       </div>
     </div>
