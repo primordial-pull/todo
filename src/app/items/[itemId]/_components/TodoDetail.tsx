@@ -23,7 +23,6 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
   const { data: todo, isPending } = useQuery({
     queryKey: ['todo', itemId],
     queryFn: () => fetchTodoItem({ itemId }),
-    staleTime: 0,
   });
   const { updateMutation } = useUpdateTodo();
   const { mutation } = useFileUpload();

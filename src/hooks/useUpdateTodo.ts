@@ -7,10 +7,12 @@ export const useUpdateTodo = () => {
   const updateMutation = useMutation({
     mutationFn: (todo: Todo) => updateTodoItem(todo),
     onError: () => queryClient.invalidateQueries({ queryKey: ['todoItems'] }),
-    onSuccess: (serverData) =>
+    onSuccess: (serverData) => {
       queryClient.setQueryData<Todo[]>(['todoItems'], (old) =>
         (old || []).map((t) => (t.id === serverData.id ? serverData : t)),
-      ),
+      );
+      queryClient.setQueryData(['todo', serverData.id], serverData);
+    },
   });
 
   return { updateMutation };
