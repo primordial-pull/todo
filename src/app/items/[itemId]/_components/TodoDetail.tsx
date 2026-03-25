@@ -11,15 +11,18 @@ import { Button } from '@/components/common/buttons/Button';
 import { CheckIcon, XIcon } from '@/components/icons';
 import { useUpdateTodo } from '@/hooks/useUpdateTodo';
 import { useFileUpload } from '@/hooks/useFileUpload';
+import { useRouter } from 'next/navigation';
 
 type TodoDetailProps = {
   itemId: string;
 };
 
 export const TodoDetail = ({ itemId }: TodoDetailProps) => {
+  const router = useRouter();
   const { data: todo, isPending } = useQuery({
     queryKey: ['todo', itemId],
     queryFn: () => fetchTodoItem({ itemId }),
+    staleTime: 0,
   });
   const { updateMutation } = useUpdateTodo();
   const { mutation } = useFileUpload();
@@ -62,6 +65,7 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
     try {
       await updateMutation.mutateAsync({ ...localTodo, imageUrl: fileUrl });
       alert('저장 완료');
+      router.push('/');
     } catch (err) {
       alert('업데이트 실패');
     }
