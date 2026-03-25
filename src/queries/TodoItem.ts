@@ -52,3 +52,19 @@ export const fetchTodoItem = async ({ itemId }: FetchTodoItemInput) => {
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/items/${itemId}`);
   return response.json();
 };
+
+type UploadResponse = {
+  url: string;
+};
+
+export const uploadFile = async ({ imageFile }: { imageFile: File }): Promise<UploadResponse> => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+  const config = {
+    method: 'POST',
+    body: formData,
+  };
+
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/images/upload`, config);
+  return await response.json();
+};

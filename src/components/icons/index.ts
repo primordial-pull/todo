@@ -8,3 +8,4 @@ export { default as LogoDoit } from './LogoDoit';
 export { default as Logo } from './Logo';
 export { default as PlusIcon } from './PlusIcon';
 export { default as TodoIcon } from './TodoIcon';
+export { default as UploadPlaceholderIcon } from './UploadPlaceholderIcon';

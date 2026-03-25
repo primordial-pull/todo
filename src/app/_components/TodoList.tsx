@@ -8,6 +8,7 @@ import TodoIcon from '@/components/icons/TodoIcon';
 import { DoneIcon } from '@/components/icons';
 import { EmptyTodoIcon } from '@/components/icons/emptyIcon/EmptyTodoIcon';
 import { EmptyDoneIcon } from '@/components/icons/emptyIcon/EmptyDoneIcon';
+import { Todo } from '@/types/Todo';
 
 export type CheckListConfig = {
   titleIcon: React.ReactNode;
@@ -30,7 +31,14 @@ const checkListConfigs = {
 
 export const TodoList = () => {
   const { todos, setTodos, isPending } = useTodos();
-  const { toggleTodo } = useUpdateTodo(setTodos);
+  const { updateMutation } = useUpdateTodo();
+
+  const toggleTodo = (todo: Todo) => {
+    setTodos((prev) =>
+      prev.map((t) => (t.id === todo.id ? { ...t, isCompleted: !t.isCompleted } : t)),
+    );
+    updateMutation.mutate({ ...todo, isCompleted: !todo.isCompleted });
+  };
 
   const todoList = todos.filter((t) => !t.isCompleted);
   const doneList = todos.filter((t) => t.isCompleted);
