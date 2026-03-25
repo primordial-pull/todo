@@ -56,6 +56,7 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
     let fileUrl = localTodo?.imageUrl;
 
     if (imageFile) {
+      if (!isValidImage(imageFile)) return;
       try {
         fileUrl = (await mutation.mutateAsync({ imageFile })).url;
       } catch (err) {
@@ -71,6 +72,22 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
     } catch (err) {
       alert('업데이트 실패');
     }
+  };
+
+  const isValidImage = (imageFile: File): boolean => {
+    const MAX_SIZE = 5 * 1024 * 1024;
+    const FILE_NAME_REGEX = /^[a-zA-Z]+$/;
+    const nameWithoutExt = imageFile.name.split('.').slice(0, -1).join('.');
+
+    if (!FILE_NAME_REGEX.test(nameWithoutExt)) {
+      alert('파일 이름은 영어만 가능합니다.');
+      return false;
+    }
+    if (imageFile.size > MAX_SIZE) {
+      alert('파일 크기는 5MB 이하만 가능합니다.');
+      return false;
+    }
+    return true;
   };
 
   const handleDeleteButtonClick = () => {
