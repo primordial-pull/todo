@@ -12,9 +12,10 @@ import { CheckIcon, XIcon } from '@/components/icons';
 import { useUpdateTodo } from '@/hooks/useUpdateTodo';
 import { useFileUpload } from '@/hooks/useFileUpload';
 import { useRouter } from 'next/navigation';
+import { useDeleteTodo } from '@/hooks/useDeleteTodo';
 
 type TodoDetailProps = {
-  itemId: string;
+  itemId: number;
 };
 
 export const TodoDetail = ({ itemId }: TodoDetailProps) => {
@@ -26,6 +27,7 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
   });
   const { updateMutation } = useUpdateTodo();
   const { mutation } = useFileUpload();
+  const { deleteMutation } = useDeleteTodo();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [localTodo, setLocalTodo] = useState<Todo | null>(null);
 
@@ -71,6 +73,10 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
     }
   };
 
+  const handleDeleteButtonClick = () => {
+    deleteMutation.mutate({ itemId });
+  };
+
   if (isPending || !localTodo) return <div>loading...</div>;
 
   return (
@@ -89,7 +95,7 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
       </div>
       <div className="flex justify-center w-full gap-4 min-[1920px]:justify-end">
         <Button label="수정 완료" icon={<CheckIcon />} onClick={handleSave} type="complete" />
-        <Button label="삭제하기" icon={<XIcon />} onClick={() => {}} type="danger" />
+        <Button label="삭제하기" icon={<XIcon />} onClick={handleDeleteButtonClick} type="danger" />
       </div>
     </div>
   );

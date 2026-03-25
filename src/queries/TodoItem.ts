@@ -45,7 +45,7 @@ export const updateTodoItem = async ({
 };
 
 export type FetchTodoItemInput = {
-  itemId: string;
+  itemId: Todo['id'];
 };
 
 export const fetchTodoItem = async ({ itemId }: FetchTodoItemInput) => {
@@ -67,4 +67,16 @@ export const uploadFile = async ({ imageFile }: { imageFile: File }): Promise<Up
 
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/images/upload`, config);
   return await response.json();
+};
+
+export type DeleteTodoItemInput = {
+  itemId: Todo['id'];
+};
+
+export const deleteTodoItem = async ({ itemId }: DeleteTodoItemInput) => {
+  const config = {
+    method: 'DELETE',
+  };
+  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/items/${itemId}`, config);
+  return response.json();
 };
