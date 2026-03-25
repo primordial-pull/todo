@@ -43,13 +43,7 @@ export const DetailImageSection = ({
     <div className="relative w-full min-[1920]:min-w-[384px]">
       <div className="flex justify-center items-center h-[311px] bg-slate-50 border-2 border-slate-300 border-dashed rounded-3xl overflow-hidden relative">
         {preview ? (
-          <Image
-            src={preview}
-            alt="미리보기"
-            fill
-            className="object-cover"
-            priority={true} // 필요 시 바로 로딩
-          />
+          <Image src={preview} alt="미리보기" fill className="object-cover" priority={true} />
         ) : (
           <UploadPlaceholderIcon />
         )}

@@ -11,6 +11,10 @@ type ButtonProps = {
   onClick?: () => void;
 };
 
+/*
+  label + icon을 포함하는 기본 버튼
+  responsive=true 옵션으로 모바일 화면에서 반응형으로 사용 가능
+*/
 export const Button = ({
   type,
   label,
@@ -22,7 +26,7 @@ export const Button = ({
   const typeClass = {
     neutral: 'bg-slate-200',
     danger: 'bg-rose-500 text-white',
-    complete: 'bg-lime-300',
+    complete: 'bg-success',
     primary: 'bg-primary text-white',
   };
 

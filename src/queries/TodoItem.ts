@@ -1,17 +1,16 @@
-import { Todo } from '@/types/Todo';
+import {
+  AddTodoInput,
+  DeleteTodoItemInput,
+  FetchTodoItemInput,
+  Todo,
+  UpdateTodoInput,
+  UploadResponse,
+} from '@/types/Todo';
 
 export const fetchTodoItems = async (): Promise<Todo[]> => {
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/items');
   return response.json();
 };
-
-export type AddTodoInput = {
-  name: string;
-};
-
-export type UpdateTodoInput = Partial<
-  Pick<Todo, 'id' | 'name' | 'memo' | 'imageUrl' | 'isCompleted'>
->;
 
 export const addTodoItem = async ({ name }: AddTodoInput): Promise<Todo> => {
   const config = {
@@ -44,17 +43,9 @@ export const updateTodoItem = async ({
   return response.json();
 };
 
-export type FetchTodoItemInput = {
-  itemId: Todo['id'];
-};
-
 export const fetchTodoItem = async ({ itemId }: FetchTodoItemInput) => {
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/items/${itemId}`);
   return response.json();
-};
-
-type UploadResponse = {
-  url: string;
 };
 
 export const uploadFile = async ({ imageFile }: { imageFile: File }): Promise<UploadResponse> => {
@@ -67,10 +58,6 @@ export const uploadFile = async ({ imageFile }: { imageFile: File }): Promise<Up
 
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/images/upload`, config);
   return await response.json();
-};
-
-export type DeleteTodoItemInput = {
-  itemId: Todo['id'];
 };
 
 export const deleteTodoItem = async ({ itemId }: DeleteTodoItemInput) => {

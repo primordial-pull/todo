@@ -31,6 +31,9 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
   const [localTodo, setLocalTodo] = useState<Todo | null>(null);
 
   useEffect(() => {
+    /* 
+      서버에서 null 값을 허용하지 않는 필드가 있어서 타입에 맞는 기본 값 삽입
+    */
     if (todo) {
       setLocalTodo({
         id: todo.id,

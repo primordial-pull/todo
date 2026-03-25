@@ -1,5 +1,5 @@
-import { deleteTodoItem, DeleteTodoItemInput } from '@/queries/TodoItem';
-import { Todo } from '@/types/Todo';
+import { deleteTodoItem } from '@/queries/TodoItem';
+import { DeleteTodoItemInput, Todo } from '@/types/Todo';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 

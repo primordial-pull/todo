@@ -8,6 +8,10 @@ type IconButtonProps = {
   disabled?: boolean;
 };
 
+/* 
+  아이콘 하나만 포함하는 동그란 버튼
+*/
+
 export const IconButton = ({
   variant = 'neutral',
   icon,

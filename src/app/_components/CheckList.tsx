@@ -1,6 +1,6 @@
 import { Todo } from '@/types/Todo';
 import { TodoItem } from './TodoItem';
-import { CheckListConfig } from './TodoList';
+import { CheckListConfig } from '@/types/CheckList';
 
 type CheckListProps = {
   list: Todo[];
