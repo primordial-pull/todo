@@ -19,6 +19,14 @@ export const DetailImageSection = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(imageUrl || null);
 
+  useEffect(() => {
+    return () => {
+      if (imageFile && preview && preview !== imageUrl) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview, imageFile, imageUrl]);
+
   const handleClick = () => {
     fileInputRef.current?.click();
   };
@@ -30,14 +38,6 @@ export const DetailImageSection = ({
     setImageFile(file);
     setPreview(URL.createObjectURL(file));
   };
-
-  useEffect(() => {
-    return () => {
-      if (imageFile && preview && preview !== imageUrl) {
-        URL.revokeObjectURL(preview);
-      }
-    };
-  }, [preview, imageFile, imageUrl]);
 
   return (
     <div className="relative min-w-[384px]">
