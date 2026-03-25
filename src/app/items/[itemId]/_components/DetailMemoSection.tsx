@@ -12,7 +12,7 @@ export const DetailMemoSection = ({ memo, onChange }: DetailMemoSectionProps) =>
         backgroundSize: 'cover',
       }}
     >
-      <div className="mb-4 text-amber-800 text-base font-extrabold">Memo</div>
+      <div className="mb-4 text-accent text-base font-extrabold">Memo</div>
       <textarea
         className="w-full h-full bg-transparent resize-none outline-none"
         value={memo}

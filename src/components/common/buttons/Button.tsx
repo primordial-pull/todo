@@ -1,6 +1,6 @@
 'use client';
 
-type ButtonType = 'primary' | 'danger' | 'complete' | 'violet';
+type ButtonType = 'neutral' | 'danger' | 'complete' | 'primary';
 
 type ButtonProps = {
   type: ButtonType;
@@ -20,10 +20,10 @@ export const Button = ({
   onClick,
 }: ButtonProps) => {
   const typeClass = {
-    primary: 'bg-slate-200',
+    neutral: 'bg-slate-200',
     danger: 'bg-rose-500 text-white',
     complete: 'bg-lime-300',
-    violet: 'bg-violet-600 text-white',
+    primary: 'bg-primary text-white',
   };
 
   return (

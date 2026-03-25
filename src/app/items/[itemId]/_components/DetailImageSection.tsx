@@ -64,7 +64,7 @@ export const DetailImageSection = ({
       />
 
       <IconButton
-        variant={imageUrl || preview ? 'solid' : 'primary'}
+        variant={imageUrl || preview ? 'solid' : 'neutral'}
         icon={imageUrl || preview ? <EditIcon /> : <PlusIcon />}
         onClick={handleClick}
         className="absolute bottom-4 right-4"

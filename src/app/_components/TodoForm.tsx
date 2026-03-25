@@ -47,7 +47,7 @@ export const TodoForm = ({ todoList, setTodos }: TodoFormProps) => {
         placeholder="할 일을 입력해주세요"
       />
       <Button
-        type={todoList.length > 0 ? 'primary' : 'violet'}
+        type={todoList.length > 0 ? 'neutral' : 'primary'}
         label="추가하기"
         icon={<PlusIcon />}
         responsive={true}

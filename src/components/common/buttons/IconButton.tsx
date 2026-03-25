@@ -1,7 +1,7 @@
 'use client';
 
 type IconButtonProps = {
-  variant?: 'primary' | 'solid';
+  variant?: 'neutral' | 'solid';
   icon: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -9,14 +9,14 @@ type IconButtonProps = {
 };
 
 export const IconButton = ({
-  variant = 'primary',
+  variant = 'neutral',
   icon,
   className,
   onClick,
   disabled = false,
 }: IconButtonProps) => {
   const variantClass = {
-    primary: 'bg-slate-200 text-slate-500',
+    neutral: 'bg-slate-200 text-slate-500',
     solid: 'bg-slate-900 text-white',
   };
 
