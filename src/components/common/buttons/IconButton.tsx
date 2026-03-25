@@ -30,7 +30,7 @@ export const IconButton = ({
         ${className}
       `}
     >
-      <div className="w-5 h-5 flex items-center justify-center">{icon}</div>
+      <div className="flex items-center justify-center">{icon}</div>
     </button>
   );
 };

@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { IconButton } from '@/components/common/buttons/IconButton';
-import { PlusIcon, UploadPlaceholderIcon } from '@/components/icons';
+import { EditIcon, PlusIcon, UploadPlaceholderIcon } from '@/components/icons';
 import Image from 'next/image';
 
 type DetailImageSectionProps = {
@@ -64,8 +64,8 @@ export const DetailImageSection = ({
       />
 
       <IconButton
-        variant="primary"
-        icon={<PlusIcon />}
+        variant={imageUrl || preview ? 'solid' : 'primary'}
+        icon={imageUrl || preview ? <EditIcon /> : <PlusIcon />}
         onClick={handleClick}
         className="absolute bottom-4 right-4"
       />
