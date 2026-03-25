@@ -5,12 +5,11 @@ export default async function Page({ params }: { params: Promise<{ itemId: strin
   const { itemId } = await params;
 
   return (
-    <div>
+    <div className="flex flex-col bg-gray-50 h-screen ">
       <GlobalNavBar />
-      <main className="mx-[102px]">
+      <main className="bg-background flex-1 min-[744px] px-4 min-[744px]:px-6 min-[1920px]:px-[102px] min-[1920px]:mx-[360px]">
         <TodoDetail itemId={itemId} />
       </main>
-      {/* <DetailTitle todo={{ name }} onClick={() => {}} /> */}
     </div>
   );
 }

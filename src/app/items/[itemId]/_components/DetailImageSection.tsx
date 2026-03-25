@@ -3,11 +3,12 @@
 import { useRef, useState, useEffect } from 'react';
 import { IconButton } from '@/components/common/buttons/IconButton';
 import { PlusIcon, UploadPlaceholderIcon } from '@/components/icons';
+import Image from 'next/image';
 
 type DetailImageSectionProps = {
   imageFile: File | null;
   setImageFile: (file: File | null) => void;
-  imageUrl?: string; 
+  imageUrl?: string;
 };
 
 export const DetailImageSection = ({
@@ -40,9 +41,15 @@ export const DetailImageSection = ({
 
   return (
     <div className="relative min-w-[384px]">
-      <div className="flex justify-center items-center h-[311px] bg-slate-50 border-2 border-slate-300 border-dashed rounded-3xl overflow-hidden">
+      <div className="flex justify-center items-center h-[311px] bg-slate-50 border-2 border-slate-300 border-dashed rounded-3xl overflow-hidden relative">
         {preview ? (
-          <img src={preview} className="w-full h-full object-cover" />
+          <Image
+            src={preview}
+            alt="미리보기"
+            fill
+            className="object-cover"
+            priority={true} // 필요 시 바로 로딩
+          />
         ) : (
           <UploadPlaceholderIcon />
         )}
