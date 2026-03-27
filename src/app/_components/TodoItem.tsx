@@ -1,8 +1,6 @@
-'use client';
-
 import { CheckedIcon, UnCheckedIcon } from '@/components/icons';
 import { Todo } from '@/types/Todo';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 type TodoItemProps = {
   todo: Todo;
@@ -11,11 +9,6 @@ type TodoItemProps = {
 
 export const TodoItem = ({ todo, onClick }: TodoItemProps) => {
   const { isCompleted, name, id } = todo;
-  const router = useRouter();
-
-  const handleNameClick = () => {
-    router.push(`/items/${id}`);
-  };
 
   return (
     <div
@@ -24,7 +17,7 @@ export const TodoItem = ({ todo, onClick }: TodoItemProps) => {
       }`}
     >
       <div onClick={() => onClick(todo)}>{isCompleted ? <CheckedIcon /> : <UnCheckedIcon />}</div>
-      <div className={`w-full cursor-pointer`} onClick={handleNameClick}>
+      <Link className="w-full" href={`/items/${id}`}>
         <span
           className={`text-base font-normal leading-none tracking-normal ${
             isCompleted ? 'line-through text-slate-800' : ''
@@ -32,7 +25,7 @@ export const TodoItem = ({ todo, onClick }: TodoItemProps) => {
         >
           {name}
         </span>
-      </div>
+      </Link>
     </div>
   );
 };
