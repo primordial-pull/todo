@@ -1,10 +1,8 @@
 'use client';
 
-import { fetchTodoItem } from '@/queries/TodoItem';
-import { useQuery } from '@tanstack/react-query';
 import { DetailTitle } from './DetailTitle';
 import { DetailImageSection } from './DetailImageSection';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Todo } from '@/types/Todo';
 import { DetailMemoSection } from './DetailMemoSection';
 import { Button } from '@/components/common/buttons/Button';
@@ -15,36 +13,16 @@ import { useRouter } from 'next/navigation';
 import { useDeleteTodo } from '@/hooks/useDeleteTodo';
 
 type TodoDetailProps = {
-  itemId: number;
+  todo: Todo;
 };
 
-export const TodoDetail = ({ itemId }: TodoDetailProps) => {
+export const TodoDetail = ({ todo }: TodoDetailProps) => {
   const router = useRouter();
-  const { data: todo, isPending } = useQuery({
-    queryKey: ['todo', itemId],
-    queryFn: () => fetchTodoItem({ itemId }),
-    staleTime: 1000 * 60 * 5,
-  });
   const { updateMutation } = useUpdateTodo();
   const { mutation } = useFileUpload();
   const { deleteMutation } = useDeleteTodo();
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [localTodo, setLocalTodo] = useState<Todo | null>(null);
-
-  useEffect(() => {
-    /* 
-      서버에서 null 값을 허용하지 않는 필드가 있어서 타입에 맞는 기본 값 삽입
-    */
-    if (todo) {
-      setLocalTodo({
-        id: todo.id,
-        name: todo.name ?? '',
-        isCompleted: todo.isCompleted ?? false,
-        imageUrl: todo.imageUrl ?? '',
-        memo: todo.memo ?? '',
-      });
-    }
-  }, [todo]);
+  const [localTodo, setLocalTodo] = useState<Todo>(todo);
 
   const handleToggle = () => {
     setLocalTodo((prev) => (prev ? { ...prev, isCompleted: !prev.isCompleted } : prev));
@@ -94,10 +72,8 @@ export const TodoDetail = ({ itemId }: TodoDetailProps) => {
   };
 
   const handleDeleteButtonClick = () => {
-    deleteMutation.mutate({ itemId });
+    deleteMutation.mutate({ itemId: todo.id });
   };
-
-  if (isPending || !localTodo) return <div>loading...</div>;
 
   return (
     <div className="flex flex-col gap-6 w-full">

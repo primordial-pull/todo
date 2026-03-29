@@ -43,9 +43,17 @@ export const updateTodoItem = async ({
   return response.json();
 };
 
-export const fetchTodoItem = async ({ itemId }: FetchTodoItemInput) => {
+export const fetchTodoItem = async ({ itemId }: FetchTodoItemInput): Promise<Todo> => {
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/items/${itemId}`);
-  return response.json();
+  const todo = await response.json();
+
+  return {
+    id: todo.id,
+    name: todo.name ?? '',
+    isCompleted: todo.isCompleted ?? false,
+    imageUrl: todo.imageUrl ?? '',
+    memo: todo.memo ?? '',
+  };
 };
 
 export const uploadFile = async ({ imageFile }: { imageFile: File }): Promise<UploadResponse> => {
