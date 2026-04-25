@@ -15,14 +15,17 @@
   --color-accent: #92400e;
 
   --font-sans: var(--font-sans);
+
+  --breakpoint-tablet: 744px;
+  --breakpoint-desktop: 1920px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* @media (prefers-color-scheme: dark) { */
+/* :root { */
+/* --background: #0a0a0a; */
+/* --foreground: #ededed; */
+/* } */
+/* } */
 
 body {
   background: var(--background);

@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: Promise<{ itemId: numbe
   return (
     <div className="flex flex-col bg-gray-50 h-screen ">
       <GlobalNavBar />
-      <main className="bg-background flex-1 min-[744px] px-4 min-[744px]:px-6 min-[1920px]:px-[102px] min-[1920px]:mx-[360px]">
+      <main className="bg-background flex-1 px-4 tablet:px-6 desktop:px-[102px] desktop:mx-[360px]">
         <TodoDetail todo={todo} />
       </main>
     </div>

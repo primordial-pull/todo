@@ -3,10 +3,10 @@ import type { SVGProps } from 'react';
 export const EmptyTodoIcon = () => {
   return (
     <>
-      <div className="block min-[744px]:hidden">
+      <div className="block tablet:hidden">
         <SvgEmptyTodoSmallIcon />
       </div>
-      <div className="hidden min-[744px]:block">
+      <div className="hidden tablet:block">
         <SvgEmptyTodoLargeIcon />
       </div>
     </>

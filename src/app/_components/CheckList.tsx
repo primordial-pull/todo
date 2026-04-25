@@ -11,7 +11,7 @@ type CheckListProps = {
 
 export const CheckList = ({ list, config, onClick, className }: CheckListProps) => {
   return (
-    <div className={`flex flex-col w-full min-[1920px]:w-1/2 gap-4 mb-12 ${className}`}>
+    <div className={`flex flex-col w-full desktop:w-1/2 gap-4 mb-12 ${className}`}>
       {config.titleIcon}
 
       {list.length > 0 ? (

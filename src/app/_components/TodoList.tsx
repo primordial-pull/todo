@@ -44,7 +44,7 @@ export const TodoList = () => {
     <>
       <TodoForm setTodos={setTodos} todoList={todoList} />
 
-      <div className="flex flex-col min-[1920px]:flex-row gap-6">
+      <div className="flex flex-col desktop:flex-row gap-6">
         <CheckList list={todoList} config={checkListConfigs.todo} onClick={toggleTodo} />
         <CheckList list={doneList} config={checkListConfigs.done} onClick={toggleTodo} />
       </div>
