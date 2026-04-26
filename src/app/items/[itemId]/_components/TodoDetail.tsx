@@ -90,8 +90,20 @@ export const TodoDetail = ({ todo }: TodoDetailProps) => {
         />
       </div>
       <div className="flex justify-center w-full gap-4 mb-12 desktop:justify-end">
-        <Button label="수정 완료" icon={<CheckIcon />} onClick={handleSave} type="complete" />
-        <Button label="삭제하기" icon={<XIcon />} onClick={handleDeleteButtonClick} type="danger" />
+        <Button
+          label={updateMutation.isPending ? '수정중..' : '수정 완료'}
+          icon={<CheckIcon />}
+          onClick={handleSave}
+          type="complete"
+          disabled={updateMutation.isPending}
+        />
+        <Button
+          label={deleteMutation.isPending ? '삭제중..' : '삭제하기'}
+          icon={<XIcon />}
+          onClick={handleDeleteButtonClick}
+          type="danger"
+          disabled={deleteMutation.isPending}
+        />
       </div>
     </div>
   );

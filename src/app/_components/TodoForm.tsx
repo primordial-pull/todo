@@ -48,9 +48,10 @@ export const TodoForm = ({ todoList, setTodos }: TodoFormProps) => {
       />
       <Button
         type={todoList.length > 0 ? 'neutral' : 'primary'}
-        label="추가하기"
+        label={mutation.isPending ? '추가중..' : '추가하기'}
         icon={<PlusIcon />}
         responsive={true}
+        disabled={mutation.isPending}
       />
     </form>
   );
