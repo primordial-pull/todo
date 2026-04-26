@@ -9,11 +9,10 @@ import { Button } from '@/components/common/buttons/Button';
 import { PlusIcon } from '@/components/icons';
 
 type TodoFormProps = {
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
   todoList: Todo[];
 };
 
-export const TodoForm = ({ todoList, setTodos }: TodoFormProps) => {
+export const TodoForm = ({ todoList }: TodoFormProps) => {
   const queryClient = useQueryClient();
   const [todoName, setTodoName] = useState('');
 
@@ -25,7 +24,6 @@ export const TodoForm = ({ todoList, setTodos }: TodoFormProps) => {
     },
 
     onSuccess: (serverData: Todo) => {
-      setTodos((prev) => [serverData, ...prev]);
       queryClient.setQueryData<Todo[]>(['todoItems'], (old) => [serverData, ...(old || [])]);
     },
   });

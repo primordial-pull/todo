@@ -24,14 +24,11 @@ const checkListConfigs = {
 };
 
 export const TodoList = () => {
-  const { todos, setTodos, isPending } = useTodos();
+  const { todos, isPending } = useTodos();
   const { updateMutation } = useUpdateTodo();
 
   /* TodoItem 왼쪽 버튼을 누를 경우 isCompleted toggle */
   const toggleTodo = (todo: Todo) => {
-    setTodos((prev) =>
-      prev.map((t) => (t.id === todo.id ? { ...t, isCompleted: !t.isCompleted } : t)),
-    );
     updateMutation.mutate({ ...todo, isCompleted: !todo.isCompleted });
   };
 
@@ -42,8 +39,7 @@ export const TodoList = () => {
 
   return (
     <>
-      <TodoForm setTodos={setTodos} todoList={todoList} />
-
+      <TodoForm todoList={todoList} />
       <div className="flex flex-col desktop:flex-row gap-6">
         <CheckList list={todoList} config={checkListConfigs.todo} onClick={toggleTodo} />
         <CheckList list={doneList} config={checkListConfigs.done} onClick={toggleTodo} />
