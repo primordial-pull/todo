@@ -1,5 +1,8 @@
 'use client';
 
+import { cn } from '@/utils/cn';
+import { cva } from 'class-variance-authority';
+
 type IconButtonProps = {
   variant?: 'neutral' | 'solid';
   icon: React.ReactNode;
@@ -19,22 +22,30 @@ export const IconButton = ({
   onClick,
   disabled = false,
 }: IconButtonProps) => {
-  const variantClass = {
-    neutral: 'bg-slate-200 text-slate-500',
-    solid: 'bg-slate-900 text-white',
-  };
-
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`flex justify-center items-center 
-        w-12 h-12 rounded-full 
-        ${variantClass[variant]}
-        ${className}
-      `}
+      className={cn(buttonVariants({ variant, disabled }), className)}
     >
       <div className="flex items-center justify-center">{icon}</div>
     </button>
   );
 };
+
+const buttonVariants = cva('flex justify-center items-center w-12 h-12 rounded-full', {
+  variants: {
+    variant: {
+      neutral: 'bg-slate-200 text-slate-500',
+      solid: 'bg-slate-900 text-white',
+    },
+
+    disabled: {
+      true: 'bg-gray-400',
+    },
+  },
+  defaultVariants: {
+    variant: 'neutral',
+    disabled: false,
+  },
+});
